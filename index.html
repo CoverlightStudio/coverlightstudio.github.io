@@ -75,6 +75,16 @@ h2 em{font-weight:500;color:var(--gold)}
 footer{padding:36px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);text-align:center}
 @media (max-width:900px){.grid,.prices{grid-template-columns:1fr 1fr}.wrapshot{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.grid{grid-template-columns:1fr 1fr;gap:16px}.prices,.steps{grid-template-columns:1fr}.shelf img{width:24%}}
+.qform{max-width:760px;margin:10px auto 0;text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.qform label{display:flex;flex-direction:column;gap:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.qform .full{grid-column:1/-1}
+.qform input,.qform select,.qform textarea{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:13px 14px;color:var(--text);font:inherit;font-size:15px;letter-spacing:0;text-transform:none}
+.qform textarea{min-height:110px;resize:vertical}
+.qform button{grid-column:1/-1;justify-self:center;border:0;cursor:pointer}
+#thanks{display:none;max-width:640px;margin:0 auto 24px;background:#132a1c;border:1px solid #25d366;border-radius:6px;padding:16px;color:var(--text)}
+#thanks:target{display:block}
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:50;background:#25d366;color:#07140b;font-weight:600;text-decoration:none;padding:13px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:14px}
+@media (max-width:520px){.qform{grid-template-columns:1fr}.brand{font-size:21px}nav a.btn{padding:8px 12px;font-size:10px;letter-spacing:.1em;white-space:nowrap}.wa-float{padding:12px 16px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -149,13 +159,29 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;border-top:1px soli
 <section id="contact" class="contact">
 <div class="kicker">Let's make your cover</div>
 <h2>Tell me about <em>your book</em></h2>
-<div class="row">
-<div class="box"><div class="k">Email</div><div class="v"><a href="mailto:joynmuthini@gmail.com">joynmuthini@gmail.com</a></div></div>
-<div class="box"><div class="k">WhatsApp</div><div class="v"><a href="https://wa.me/254713058438">0713 058 438</a></div></div>
-</div>
-<p>Include your title, genre, page count, trim size and deadline.</p>
+<div id="thanks">Thank you! Your request is in. You'll get a reply within 24 hours.</div>
+<form class="qform" action="https://formsubmit.co/joynmuthini@gmail.com" method="POST">
+<input type="hidden" name="_subject" value="New cover quote request - Coverlight Studio">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://coverlightstudio.github.io/#thanks">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<label>Your name<input name="Name" required></label>
+<label>Email<input type="email" name="email" required></label>
+<label>WhatsApp (optional)<input name="WhatsApp" inputmode="tel"></label>
+<label>Book title<input name="Book title" required></label>
+<label>Genre<select name="Genre"><option>Romance</option><option>Thriller / Crime</option><option>Fantasy / Sci-fi</option><option>Faith / Inspirational</option><option>Self-help / Business</option><option>Memoir</option><option>Children's</option><option>Other</option></select></label>
+<label>Service<select name="Service"><option>Ebook + paperback (KSh 8,500 / US$149)</option><option>New ebook cover (KSh 4,500 / US$79)</option><option>Paperback wrap (from KSh 3,500 / US$55)</option><option>KDP cover fix (KSh 2,500 / US$40)</option><option>Not sure yet</option></select></label>
+<label>Page count<input name="Page count" inputmode="numeric"></label>
+<label>Trim size<input name="Trim size" placeholder="e.g. 6 x 9 in"></label>
+<label>Paper<select name="Paper"><option>White</option><option>Cream</option><option>Not sure</option></select></label>
+<label>Deadline<input name="Deadline" placeholder="e.g. 15 December"></label>
+<label class="full">Tell me about your book<textarea name="Message" placeholder="Short blurb, mood, covers you love..."></textarea></label>
+<button class="cta" type="submit">Request my quote</button>
+</form>
+<p>Prefer to chat? Tap the WhatsApp button and I'll reply there.</p>
 </section>
 </div>
 <footer>© 2026 Coverlight Studio · Book cover design, Nairobi · All fonts licensed for commercial print</footer>
+<a class="wa-float" href="https://wa.me/254713058438?text=Hi%20Coverlight%20Studio%2C%20I%27d%20like%20a%20quote%20for%20my%20book." target="_blank" rel="noopener">Chat on WhatsApp</a>
 </body>
 </html>
