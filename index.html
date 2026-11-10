@@ -85,6 +85,38 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;border-top:1px soli
 #thanks:target{display:block}
 .wa-float{position:fixed;right:18px;bottom:18px;z-index:50;background:#25d366;color:#07140b;font-weight:600;text-decoration:none;padding:13px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:14px}
 @media (max-width:520px){.qform{grid-template-columns:1fr}.brand{font-size:21px}nav a.btn{padding:8px 12px;font-size:10px;letter-spacing:.1em;white-space:nowrap}.wa-float{padding:12px 16px;font-size:13px}}
+.qform.brief{display:block;max-width:780px;margin:10px auto 0;text-align:left}
+.brief .steps{display:flex;gap:6px;margin:0 0 22px}
+.brief .steps span{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.brief .steps span.on{background:var(--gold)}
+.brief fieldset{border:0;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.brief legend{grid-column:1/-1;font-family:'Playfair Display',serif;font-size:24px;color:var(--text);margin-bottom:4px;padding:0}
+.brief legend small{display:block;font-family:inherit;font-size:14px;color:#a9a39a;margin-top:6px;font-weight:400}
+.brief.js fieldset{display:none}.brief.js fieldset.cur{display:grid}
+.brief .hint{font-size:12px;color:#8d877e;text-transform:none;letter-spacing:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{flex-direction:row;cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--text);font-size:13px;letter-spacing:.04em;text-transform:none;background:var(--panel)}
+.chips input:checked+span{background:var(--gold);color:#111;border-color:var(--gold)}
+.dial{display:grid;grid-template-columns:110px 1fr 110px;align-items:center;gap:10px;font-size:12px;color:#c9c3b8;text-transform:none;letter-spacing:0}
+.dial span:last-child{text-align:right}
+.dial input{accent-color:var(--red);width:100%;padding:0}
+.picks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.picks label{cursor:pointer;position:relative}
+.picks input{position:absolute;opacity:0}
+.picks img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;border:2px solid transparent;opacity:.75;transition:.2s}
+.picks input:checked+img{border-color:var(--gold);opacity:1;transform:translateY(-3px)}
+.brief .nav{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;margin-top:8px}
+.brief .ghost{background:transparent;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:14px 24px;cursor:pointer;font:inherit;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:520px){.brief fieldset{grid-template-columns:1fr}.picks{grid-template-columns:repeat(2,1fr)}.dial{grid-template-columns:80px 1fr 80px}}
+.qform.brief label{display:block}
+.qform.brief label>input,.qform.brief label>select,.qform.brief label>textarea{display:block;width:100%;margin-top:7px;box-sizing:border-box}
+.qform.brief .chips,.qform.brief .picks,.qform.brief .dial{margin-top:10px}
+.qform.brief .chips label{display:inline-flex}
+.brief .ghost{border-radius:999px;white-space:nowrap;min-width:110px;height:auto}
+.dial input{accent-color:#e63946}
+.brief .nav{align-items:center}
 </style>
 </head>
 <body>
@@ -157,29 +189,80 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;border-top:1px soli
 </div>
 </section>
 <section id="contact" class="contact">
-<div class="kicker">Let's make your cover</div>
+<div class="kicker">Your cover brief · about 8 minutes</div>
 <h2>Tell me about <em>your book</em></h2>
-<div id="thanks">Thank you! Your request is in. You'll get a reply within 24 hours.</div>
-<form class="qform" action="https://formsubmit.co/hellocoverlight@gmail.com" method="POST">
-<input type="hidden" name="_subject" value="New cover quote request - Coverlight Studio">
+<div id="thanks">Thank you! Your brief is in. I'll read it properly and reply within 24 hours with a quote and my first ideas.</div>
+<form class="qform brief" id="brief" action="https://formsubmit.co/hellocoverlight@gmail.com" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_subject" value="New cover brief - Coverlight Studio">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://coverlightstudio.github.io/#thanks">
 <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<input type="hidden" name="Mood words"><input type="hidden" name="Closest covers"><input type="hidden" name="Formats">
+<div class="steps"><span class="on"></span><span></span><span></span><span></span></div>
+
+<fieldset class="cur"><legend>1 · You and your book<small>The basics, exactly as they should appear on the cover.</small></legend>
 <label>Your name<input name="Name" required></label>
 <label>Email<input type="email" name="email" required></label>
-<label>WhatsApp (optional)<input name="WhatsApp" inputmode="tel"></label>
+<label>WhatsApp <span class="hint">(optional)</span><input name="WhatsApp" inputmode="tel"></label>
+<label>Author name on the cover<input name="Author name on cover" placeholder="Pen name is fine"></label>
 <label>Book title<input name="Book title" required></label>
-<label>Genre<select name="Genre"><option>Romance</option><option>Thriller / Crime</option><option>Fantasy / Sci-fi</option><option>Faith / Inspirational</option><option>Self-help / Business</option><option>Memoir</option><option>Children's</option><option>Other</option></select></label>
+<label>Subtitle / tagline <span class="hint">(optional)</span><input name="Subtitle or tagline"></label>
+<label>Genre<select name="Genre"><option>Romance</option><option>Romantasy</option><option>Thriller / Suspense</option><option>Crime / Mystery</option><option>Fantasy</option><option>Sci-fi</option><option>Horror</option><option>Literary / Book club</option><option>Historical</option><option>Faith / Inspirational</option><option>Self-help / Business</option><option>Memoir / Non-fiction</option><option>Children's / YA</option><option>Poetry</option><option>Other</option></select></label>
+<label>Standalone or series?<input name="Series" placeholder="e.g. Book 2 of 3 – The Ember Trilogy"></label>
+<div class="nav"><span></span><button type="button" class="cta" data-go="1">Next: the story</button></div>
+</fieldset>
+
+<fieldset><legend>2 · The story<small>Write it the way you'd tell a friend. Rough is perfect.</small></legend>
+<label class="full">Your book in one sentence<input name="One-line hook" placeholder="A disgraced surgeon must save the man who ruined her..."></label>
+<label class="full">Blurb or short summary<textarea name="Blurb" placeholder="Paste your back-cover blurb, or tell me what happens."></textarea></label>
+<label>Where and when is it set?<input name="Setting" placeholder="1990s Mombasa, a space station, modern Paris..."></label>
+<label>Point of view / main character<input name="Main character" placeholder="Who are we following?"></label>
+<label class="full">What do your main characters look like? <span class="hint">age, skin, hair, style, one thing they always wear or carry</span><textarea name="Character looks" style="min-height:80px"></textarea></label>
+<label class="full">One object, place or image that IS your book <span class="hint">the key, the red dress, the lighthouse, the storm</span><input name="Key symbol"></label>
+<label class="full">Tropes or themes <span class="hint">(optional)</span><input name="Tropes / themes" placeholder="enemies to lovers, revenge, found family, faith tested..."></label>
+<div class="nav"><button type="button" class="ghost" data-go="0">Back</button><button type="button" class="cta" data-go="2">Next: the feel</button></div>
+</fieldset>
+
+<fieldset><legend>3 · The feel<small>This is where the cover really comes from.</small></legend>
+<label class="full">Pick up to 3 words a reader should FEEL<div class="chips"><label><input type="checkbox" data-g="Mood words" value="Brooding"><span>Brooding</span></label><label><input type="checkbox" data-g="Mood words" value="Steamy"><span>Steamy</span></label><label><input type="checkbox" data-g="Mood words" value="Tender"><span>Tender</span></label><label><input type="checkbox" data-g="Mood words" value="Ominous"><span>Ominous</span></label><label><input type="checkbox" data-g="Mood words" value="Epic"><span>Epic</span></label><label><input type="checkbox" data-g="Mood words" value="Hopeful"><span>Hopeful</span></label><label><input type="checkbox" data-g="Mood words" value="Gritty"><span>Gritty</span></label><label><input type="checkbox" data-g="Mood words" value="Luxurious"><span>Luxurious</span></label><label><input type="checkbox" data-g="Mood words" value="Eerie"><span>Eerie</span></label><label><input type="checkbox" data-g="Mood words" value="Playful"><span>Playful</span></label><label><input type="checkbox" data-g="Mood words" value="Urgent"><span>Urgent</span></label><label><input type="checkbox" data-g="Mood words" value="Healing"><span>Healing</span></label><label><input type="checkbox" data-g="Mood words" value="Dangerous"><span>Dangerous</span></label><label><input type="checkbox" data-g="Mood words" value="Nostalgic"><span>Nostalgic</span></label><label><input type="checkbox" data-g="Mood words" value="Defiant"><span>Defiant</span></label><label><input type="checkbox" data-g="Mood words" value="Sacred"><span>Sacred</span></label></div></label>
+<label class="full">Light<div class="dial"><span>Dark & moody</span><input type="range" min="1" max="5" value="3" data-l="Dark & moody" data-r="Bright & warm" name="Light"><span>Bright & warm</span></div></label>
+<label class="full">Style<div class="dial"><span>Photographic</span><input type="range" min="1" max="5" value="3" data-l="Photographic" data-r="Illustrated" name="Style"><span>Illustrated</span></div></label>
+<label class="full">Detail<div class="dial"><span>Minimal & bold</span><input type="range" min="1" max="5" value="3" data-l="Minimal & bold" data-r="Rich & detailed" name="Detail"><span>Rich & detailed</span></div></label>
+<label class="full">Focus<div class="dial"><span>A person</span><input type="range" min="1" max="5" value="3" data-l="A person" data-r="Object / place / type" name="Focus"><span>Object / place / type</span></div></label>
+<label class="full">Which of my covers feels closest? <span class="hint">tap any</span><div class="picks"><label><input type="checkbox" data-g="Closest covers" value="Under the Rooftop Lights"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/00d89e23-4af9-44f0-87b1-9dce245fd93a.jpg" alt="Under the Rooftop Lights" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="The Ninth Stair"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/e42c9970-16b5-43f5-8185-3f4872944b47.jpg" alt="The Ninth Stair" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="Daughter of the Rift"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/93256af7-2697-4533-a56a-1010d2071574.jpg" alt="Daughter of the Rift" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="The Slow Yes"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/809f35b2-e706-4cad-b4de-9eb917935ecf.jpg" alt="The Slow Yes" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="Orbit of Ash"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/2132d6f5-48ae-4521-a84c-7261f97c0abe.jpg" alt="Orbit of Ash" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="Last Stage"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/a50d5115-af79-4810-a5b3-e8caf759c33c.jpg" alt="Last Stage" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="The Morning Will Come"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/88589550-5091-4634-9b1c-779f65ecbb11.jpg" alt="The Morning Will Come" loading="lazy"></label><label><input type="checkbox" data-g="Closest covers" value="The Modern Seductress"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JQFtqJolcTn14p7H4jk1SnRahT/9e9d736d-ff4a-4621-ad25-19698cb9c959.jpg" alt="The Modern Seductress" loading="lazy"></label></div></label>
+<label class="full">If your book were a film or a song, what would it be?<input name="Film or song it feels like" placeholder="Gone Girl meets a Sade album..."></label>
+<label class="full">2–3 covers you love <span class="hint">(links or titles, any author)</span><textarea name="Covers they love" style="min-height:70px"></textarea></label>
+<label class="full">Anything to avoid?<input name="Avoid" placeholder="no pink, no faces, no stock-photo couples..."></label>
+<div class="nav"><button type="button" class="ghost" data-go="1">Back</button><button type="button" class="cta" data-go="3">Next: the details</button></div>
+</fieldset>
+
+<fieldset><legend>4 · Formats and timing<small>So the quote is exact and the files pass KDP first time.</small></legend>
 <label>Service<select name="Service"><option>Ebook + paperback (KSh 8,500 / US$149)</option><option>New ebook cover (KSh 4,500 / US$79)</option><option>Paperback wrap (from KSh 3,500 / US$55)</option><option>KDP cover fix (KSh 2,500 / US$40)</option><option>Not sure yet</option></select></label>
-<label>Page count<input name="Page count" inputmode="numeric"></label>
+<label>Where will you publish?<input name="Platform" placeholder="Amazon KDP, IngramSpark, local printer..."></label>
+<label class="full">Formats needed<div class="chips"><label><input type="checkbox" data-g="Formats" value="Ebook"><span>Ebook</span></label><label><input type="checkbox" data-g="Formats" value="Paperback"><span>Paperback</span></label><label><input type="checkbox" data-g="Formats" value="Hardcover"><span>Hardcover</span></label><label><input type="checkbox" data-g="Formats" value="Audiobook"><span>Audiobook</span></label><label><input type="checkbox" data-g="Formats" value="Social media graphics"><span>Social media graphics</span></label></div></label>
+<label>Page count<input name="Page count" inputmode="numeric" placeholder="if known"></label>
 <label>Trim size<input name="Trim size" placeholder="e.g. 6 x 9 in"></label>
-<label>Paper<select name="Paper"><option>White</option><option>Cream</option><option>Not sure</option></select></label>
+<label>Paper<select name="Paper"><option>Not sure</option><option>White</option><option>Cream</option><option>Colour</option></select></label>
 <label>Deadline<input name="Deadline" placeholder="e.g. 15 December"></label>
-<label class="full">Tell me about your book<textarea name="Message" placeholder="Short blurb, mood, covers you love..."></textarea></label>
-<button class="cta" type="submit">Request my quote</button>
+<label class="full">Reference images or a sketch <span class="hint">(optional, one file under 5 MB)</span><input type="file" name="attachment" accept="image/*,.pdf"></label>
+<label class="full">Anything else I should know?<textarea name="Anything else" style="min-height:70px"></textarea></label>
+<div class="nav"><button type="button" class="ghost" data-go="2">Back</button><button type="submit" class="cta">Send my brief</button></div>
+</fieldset>
 </form>
-<p>Prefer to chat? Tap the WhatsApp button and I'll reply there.</p>
+<p>Prefer to talk it through? Tap the WhatsApp button and I'll reply there.</p>
+<script>
+(function(){var f=document.getElementById('brief');if(!f)return;f.classList.add('js');
+var fs=f.querySelectorAll('fieldset'),bars=f.querySelectorAll('.steps span');
+function go(i){fs.forEach(function(x,j){x.classList.toggle('cur',j==i)});bars.forEach(function(b,j){b.classList.toggle('on',j<=i)});document.getElementById('contact').scrollIntoView({behavior:'smooth'})}
+f.addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(!b)return;var cur=b.closest('fieldset'),n=+b.dataset.go;
+if(n>[].indexOf.call(fs,cur)){var bad=[].find.call(cur.querySelectorAll('[required]'),function(x){return!x.checkValidity()});if(bad){bad.reportValidity();return}}go(n)});
+f.addEventListener('change',function(e){var t=e.target;if(t.dataset.g==='Mood words'&&f.querySelectorAll('[data-g="Mood words"]:checked').length>3)t.checked=false});
+f.addEventListener('submit',function(){['Mood words','Closest covers','Formats'].forEach(function(g){f.querySelector('input[type=hidden][name="'+g+'"]').value=[].map.call(f.querySelectorAll('[data-g="'+g+'"]:checked'),function(x){return x.value}).join(', ')});
+f.querySelectorAll('input[type=range]').forEach(function(r){var v=+r.value;r.type='hidden';r.value=v==3?'In between':(v<3?(v==1?'Very ':'Leaning ')+r.dataset.l:(v==5?'Very ':'Leaning ')+r.dataset.r)})});
+})();
+</script>
 </section>
+
 </div>
 <footer>© 2026 Coverlight Studio · Book cover design, Nairobi · All fonts licensed for commercial print</footer>
 <a class="wa-float" href="https://wa.me/254713058438?text=Hi%20Coverlight%20Studio%2C%20I%27d%20like%20a%20quote%20for%20my%20book." target="_blank" rel="noopener">Chat on WhatsApp</a>
